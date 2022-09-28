@@ -1,0 +1,34 @@
+
+
+{% extends 'authentication/base.html' %}
+{% load static %}
+
+{% block content %}
+
+{%for message in messages %}
+<br>
+<br>
+<div class="alert alert-danger" role="alert">
+    {{message}}
+  </div>
+{%endfor%}
+
+{% if user.is_authenticated %}
+<br>
+    <div class="alert alert-primary" role="alert">
+    Hello ! You are logged In
+    </div>
+    <!-- <button type="submit"><a href="/signout">SignOut</a></button> -->
+    <a class="btn btn-primary btn-lg" href="/signout">SignOut</a>
+    {% else %}
+    <br>
+    <br>
+    <a class="btn btn-primary btn-lg" href="/signup">SignUp</a>
+    <a href="/signin" class="btn btn-secondary btn-lg">SignIn</a>
+    <!-- <button type="submit"><a href="/signup">SignUp</a></button>
+    <br/>
+    <br/>
+    <button type="submit"><a href="/signin">SignIn</a></button> -->
+    {% endif %}
+
+{% endblock %}
