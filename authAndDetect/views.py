@@ -99,7 +99,7 @@ def signup(request):
         return redirect('signin')
         
         
-    return render(request, "authentication/signup.html")
+    return render(request, "authentication/newsignup.html")
 
 
 def activate(request,uidb64,token):
@@ -131,12 +131,12 @@ def signin(request):
             login(request, user)
             fname = user.first_name
             # messages.success(request, "Logged In Sucessfully!!")
-            return render(request, "authentication/index.html",{"fname":fname})
+            return render(request, "authentication/newindex.html",{"fname":fname})
         else:
             messages.error(request, "Bad Credentials!!")
             return redirect('home')
     
-    return render(request, "authentication/signin.html")
+    return render(request, "authentication/newsignin.html")
 
 
 def signout(request):
@@ -147,7 +147,7 @@ def signout(request):
 
 def scan(req):
 
-    return render(req,"scan.html")
+    return render(req,"authentication/scan.html")
 
 def done(req):
 
@@ -180,4 +180,4 @@ def done(req):
     print(Y_pred, y_pred)
     label=labelInfo[str(y_pred[0])]
     context={'filePath':filePathName,"label":label}
-    return render(req,"done.html",context)
+    return render(req,"authentication/done.html",context)
