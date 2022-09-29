@@ -16,7 +16,7 @@ from . token_gen import generate_token
 from django.core.files.storage import FileSystemStorage
 from keras.models import load_model
 from keras.preprocessing.image import ImageDataGenerator 
-import tensorflow as tf
+# import tensorflow as tf
 import json
 import numpy as np
 from tensorflow import Graph

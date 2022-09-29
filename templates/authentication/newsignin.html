@@ -1,0 +1,35 @@
+{% extends 'authentication/extend.html' %}
+{% load static %}
+
+  {% block content %}
+
+{%for message in messages %}
+<br>
+<br>
+<div class="alert alert-danger" role="alert">
+    {{message}}
+  </div>
+{%endfor%}
+<br>
+<br>
+<div class="alert alert-primary" role="alert">
+    Login to your Account !
+</div>
+<form action="/signin" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username"  name="username" required>
+        
+    </div>
+    <div class="mb-3">
+        <label for="pass1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="pass1" name="pass1" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
+
+
+
+

@@ -1,0 +1,13 @@
+{% extends 'authentication/extend.html' %}
+{% load static %}
+
+  {% block content %}
+
+    <div style="text-align: center; margin-top: 30px;" >
+        <h1>Your crop is {{label}}</h1>
+
+        <img src="{{filePath}}" alt="image">
+        
+    </div>
+
+{% endblock %}

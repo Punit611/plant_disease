@@ -1,0 +1,50 @@
+{% extends 'authentication/extend.html' %}
+{% load static %}
+
+  {% block content %}
+
+{%for message in messages %}
+<br>
+<br>
+<div class="alert alert-danger" role="alert">
+    {{message}}
+  </div>
+{%endfor%}
+<br>
+<br>
+
+<div class="alert alert-primary" role="alert">
+    Create your Account !
+</div>
+<form method="post" action="/signup">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="username" class="form-label">Enter Your Username </label>
+        <input class="form-control" type="text" id="username" name='username' placeholder="Enter Your Username" aria-label="default input example"  required>
+    </div>
+    <div class="mb-3">
+        <label for="fname" class="form-label">Enter Your First Name </label>
+        <input class="form-control" type="text"  id="fname" name='fname' placeholder="First Name" aria-label="default input example"  required>
+    </div>
+    <div class="mb-3">
+        <label for="lname" class="form-label">Enter Your Last Name </label>
+        <input class="form-control" type="text"  id="lname" name='lname' placeholder="Last Name" aria-label="default input example"  required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" required>
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" name="pass1" required>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Confirm Your Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" name="pass2" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+</form>    
+
+{% endblock %}
