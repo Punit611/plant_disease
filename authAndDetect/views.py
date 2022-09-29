@@ -1,3 +1,4 @@
+from tkinter.tix import IMAGE
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -19,11 +20,14 @@ import tensorflow as tf
 import json
 import numpy as np
 from tensorflow import Graph
+from keras.utils import load_img, img_to_array 
 
-model =load_model('./model/Model3_CNN.hdf5')
 
+model =load_model('./model/model1.h5')
 
-img_height, img_width=80,80
+IMAGE_SIZE = 256
+BATCH_SIZE = 32
+
 with open('./model/classes.json','r') as f:
     labelInfo=f.read()
 
@@ -158,26 +162,31 @@ def done(req):
     print(fileObj)
     fs=FileSystemStorage()
     filePathName=fs.save(fileObj.name,fileObj)
-    filePathName=".."+fs.url(filePathName)
+    filePathName="."+fs.url(filePathName)
     
     # filePathName='../media/Healthy/Corn_Health (6).jpg'
     print(filePathName)
 
     
+    x = load_img(
+    filePathName,
+    target_size = (IMAGE_SIZE,IMAGE_SIZE)
+    )
+    print(filePathName)
+    x=img_to_array(x)
+    x=x/255
+    x=x.reshape(1,IMAGE_SIZE,IMAGE_SIZE,3)
+
+    # print(test)
+    Y_pred = model.predict(x)
     
-    nb_validation_samples = 150
-    batch_size=128
-    test_datagen = ImageDataGenerator(rescale = 1. / 255) #Image Augmentation
-    test = test_datagen.flow_from_directory('./media/', 
-                                            target_size =(img_width, img_height), 
-                                            batch_size = 128, class_mode ='categorical',color_mode='rgb', #grayscale
-                                            shuffle=False) 
-    print(test)
-    Y_pred = model.predict(test)
-
     y_pred = np.argmax(Y_pred, axis=1)
-
     print(Y_pred, y_pred)
+    
     label=labelInfo[str(y_pred[0])]
     context={'filePath':filePathName,"label":label}
     return render(req,"authentication/done.html",context)
+
+def preview(request):
+
+    return render(request,"authentication/preview.html")
